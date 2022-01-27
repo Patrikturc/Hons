@@ -1,0 +1,199 @@
+using QuikGraph.Data;
+using System;
+using System.Data;
+using QuikGraph.Algorithms;
+using System.IO;
+using QuikGraph;
+using QuikGraph.Graphviz;
+using System.Collections.Generic;
+using Hons_Project_Console_testin;
+
+namespace quickGraph
+{
+    class Program
+    {
+        public static List<int[]> map;
+        
+        static void Main(string[] args)
+        {
+            map = new List<int[]>();
+            generateMoves();
+            
+
+
+            Console.ReadKey();
+            /*var edges = new[] { new Edge<int>(1, 2), new Edge<int>(0, 1) };
+            var graph = edges.ToAdjacencyGraph<int, Edge<int>>();
+            int vertex1 = 1;
+            int vertex2 = 2;
+            graph.AddVertex(vertex1);
+            graph.AddVertex(vertex2);
+            string dot = graph.ToGraphviz();
+            Console.Out.WriteLine(dot);
+            Console.ReadLine();*/
+
+
+            //var edges1 = new[] { new Edge<int[]>(map, map), new Edge<int[]>(map, map), new Edge<int[]>(map, map) }; //new Edge<int>(map[0][0], map[0][2]) };
+            //var graph1 = edges1.ToBidirectionalGraph<int[], Edge<int[]>>();
+
+            /*int vertex1 = 1;
+            int vertex2 = 2;
+            graph1.AddVertex(vertex1);
+            graph1.AddVertex(vertex2);*/
+
+            //string dot = graph1.ToGraphviz();
+            //Console.Out.WriteLine(dot);
+            //Console.ReadLine();
+
+            //Console.Out.WriteLine("\n");
+
+            /*foreach (int[] vertex in graph1.Vertices)
+            {
+                print(vertex);
+            }
+
+            generateMoves();
+            Console.WriteLine("\n");
+
+            foreach (int[] vertex in graph1.Vertices)
+            {
+                print(vertex);
+            }*/
+        }
+
+        static public void generateMoves()
+        {
+            //var edges1 = new[] { new Edge<int[]>(map, map) }; //new Edge<int>(map[0][0], map[0][2]) };
+            //var graph1 = edges1.ToBidirectionalGraph<int[], Edge<int[]>>();
+            //string dot = graph1.ToGraphviz();
+
+            int emptySlotCount = 0;
+            int turn = 2;
+            int[] temp = new int[9];
+            int count = 1;
+            /*for (int i = 0; i < 9; i++)
+            {
+                if (map[i] == 0)
+                {
+                    emptySlotCount++;
+                    map[i] = turn;
+
+
+                    //edges1 = new[] { new Edge<int[]>(temp, map) };
+                    //graph1.AddVertex(map);
+
+                    //var edge2 = new TaggedEdge<int[], int[]>(temp, map, map);
+                    //graph1.AddVerticesAndEdge(edges1);
+
+                    
+                    edges1 = new[] { new Edge<int[]>(temp, map) };
+                    graph1.AddVertex(map[i]);
+                    Console.WriteLine(graph1.VertexCount);
+
+
+                    if (turn == 2) turn--;
+                    else turn++;
+                }
+            }
+            //graph1 = edges1.ToBidirectionalGraph<int[], Edge<int[]>>();
+            Console.WriteLine("\n");
+            foreach (int[] vertex in graph1.Vertices)
+            {
+                print(vertex);
+            }*/
+            for (int i = 0; i < 3; i++)
+            {
+                for (int j = 0; j < 3; j++)
+                {
+                    for (int k = 0; k < 3; k++)
+                    {
+                        for (int l = 0; l < 3; l++)
+                        {
+                            for (int m = 0; m < 3; m++)
+                            {
+                                for (int n = 0; n < 3; n++)
+                                {
+                                    for (int o = 0; o < 3; o++)
+                                    {
+                                        for (int p = 0; p < 3; p++)
+                                        {
+                                            for (int q = 0; q < 3; q++)
+                                            {
+                                                temp[0] = i;
+                                                temp[1] = j;
+                                                temp[2] = k;
+                                                temp[3] = l;
+                                                temp[4] = m;
+                                                temp[5] = n;
+                                                temp[6] = o;
+                                                temp[7] = p;
+                                                temp[8] = q;
+
+
+                                                if (Valid.check(temp))
+                                                {
+                                                    //Console.WriteLine(count + ") ");
+                                                    WinCheck.Win(temp);
+                                                    Console.WriteLine(count);
+                                                    print(temp);
+                                                    map.Add(temp);
+
+                                                    
+                                                    count++;
+                                                    Console.WriteLine();
+                                                }
+
+                                                temp = new int[9];
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            var graph = new AdjacencyGraph<int[], Edge<int[]>>();
+            //add all board states to graph as vertices
+            for (int i = 0; i < map.Count; i++)
+            {
+                graph.AddVertex(map[i]);
+            }
+
+            //if connect conditions are met then connect vertices with edges
+            for (int i = 0; i < map.Count; i++)
+            {
+                for (int j = 0; j < map.Count; j++)
+                {
+                    if (Connected.connect(map[i], map[j]))
+                    {
+
+                        Edge<int[]> a = new Edge<int[]>(map[i], map[j]);//make new edge
+                        graph.AddEdge(a);  //connect edge
+
+                    }
+                }
+            }
+
+            foreach (var vertex in graph.Vertices)
+            {
+                foreach (var edge in graph.OutEdges(vertex))
+                {
+                    //print(vertex);
+                    //Console.WriteLine(edge);
+                }
+            }
+        }
+
+        public static void print(int[] map)
+        {
+            for (int i = 0; i < map.Length; i++)
+            {
+                if (i == 2 || i == 5 || i == 8) Console.WriteLine(map[i]);
+
+                else Console.Write(map[i] + " ");
+            }
+        }
+    }
+}
