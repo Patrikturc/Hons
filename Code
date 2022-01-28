@@ -18,89 +18,18 @@ namespace quickGraph
         {
             map = new List<int[]>();
             generateMoves();
-            
-
 
             Console.ReadKey();
-            /*var edges = new[] { new Edge<int>(1, 2), new Edge<int>(0, 1) };
-            var graph = edges.ToAdjacencyGraph<int, Edge<int>>();
-            int vertex1 = 1;
-            int vertex2 = 2;
-            graph.AddVertex(vertex1);
-            graph.AddVertex(vertex2);
-            string dot = graph.ToGraphviz();
-            Console.Out.WriteLine(dot);
-            Console.ReadLine();*/
-
-
-            //var edges1 = new[] { new Edge<int[]>(map, map), new Edge<int[]>(map, map), new Edge<int[]>(map, map) }; //new Edge<int>(map[0][0], map[0][2]) };
-            //var graph1 = edges1.ToBidirectionalGraph<int[], Edge<int[]>>();
-
-            /*int vertex1 = 1;
-            int vertex2 = 2;
-            graph1.AddVertex(vertex1);
-            graph1.AddVertex(vertex2);*/
-
-            //string dot = graph1.ToGraphviz();
-            //Console.Out.WriteLine(dot);
-            //Console.ReadLine();
-
-            //Console.Out.WriteLine("\n");
-
-            /*foreach (int[] vertex in graph1.Vertices)
-            {
-                print(vertex);
-            }
-
-            generateMoves();
-            Console.WriteLine("\n");
-
-            foreach (int[] vertex in graph1.Vertices)
-            {
-                print(vertex);
-            }*/
         }
-
+        
+        /// <summary>
+        /// Algorithm to generate states to be inserted into a graph
+        /// </summary>
         static public void generateMoves()
         {
-            //var edges1 = new[] { new Edge<int[]>(map, map) }; //new Edge<int>(map[0][0], map[0][2]) };
-            //var graph1 = edges1.ToBidirectionalGraph<int[], Edge<int[]>>();
-            //string dot = graph1.ToGraphviz();
-
-            int emptySlotCount = 0;
-            int turn = 2;
             int[] temp = new int[9];
             int count = 1;
-            /*for (int i = 0; i < 9; i++)
-            {
-                if (map[i] == 0)
-                {
-                    emptySlotCount++;
-                    map[i] = turn;
-
-
-                    //edges1 = new[] { new Edge<int[]>(temp, map) };
-                    //graph1.AddVertex(map);
-
-                    //var edge2 = new TaggedEdge<int[], int[]>(temp, map, map);
-                    //graph1.AddVerticesAndEdge(edges1);
-
-                    
-                    edges1 = new[] { new Edge<int[]>(temp, map) };
-                    graph1.AddVertex(map[i]);
-                    Console.WriteLine(graph1.VertexCount);
-
-
-                    if (turn == 2) turn--;
-                    else turn++;
-                }
-            }
-            //graph1 = edges1.ToBidirectionalGraph<int[], Edge<int[]>>();
-            Console.WriteLine("\n");
-            foreach (int[] vertex in graph1.Vertices)
-            {
-                print(vertex);
-            }*/
+            
             for (int i = 0; i < 3; i++)
             {
                 for (int j = 0; j < 3; j++)
@@ -133,11 +62,11 @@ namespace quickGraph
                                                 if (Valid.check(temp))
                                                 {
                                                     //Console.WriteLine(count + ") ");
+                                                    
                                                     WinCheck.Win(temp);
                                                     Console.WriteLine(count);
                                                     print(temp);
                                                     map.Add(temp);
-
                                                     
                                                     count++;
                                                     Console.WriteLine();
@@ -184,8 +113,14 @@ namespace quickGraph
                     //Console.WriteLine(edge);
                 }
             }
+            
+            //graph.ShortestPathsAStar(graph, );
         }
 
+        /// <summary>
+        /// Pring Method
+        /// </summary>
+        /// <param name="map"></param>
         public static void print(int[] map)
         {
             for (int i = 0; i < map.Length; i++)
@@ -196,10 +131,14 @@ namespace quickGraph
             }
         }
     }
-    
+}
+
+    /// <summary>
+    /// check to ensure that only valid board states are used in the firs place
+    /// like ensuring that the board states with a difference of more than one between the number of moves is not allowed
+    /// </summary>
     class Valid
-    {//check to ensure that only valid board states are used in the firs place
-        //like ensuring that the board states with a difference of more than one between the number of moves is not allowed
+    {   
         public static bool check(int[] arr)
         {
             int twoCount = 0;
@@ -226,9 +165,12 @@ namespace quickGraph
 
     }
     
+    
+    /// <summary>
+    /// check if a win condition is met by a board state upon generation and print out if it is a win
+    /// </summary>
     class WinCheck
     {
-        //check if a win condition is met by a board state upon generation and print out if it is a win
         public static bool Win(int[] arr)
         {
 
@@ -254,8 +196,11 @@ namespace quickGraph
         }
     }
     
+    /// <summary>
+    /// check if win conditions are met, and how many of them
+    /// </summary>
     class WinValid
-    {//check if win conditions are met, and how many of them, for use in the fork check
+    {
         public static int WinVal(int[] arr)
         {
             int count = 0;
