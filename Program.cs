@@ -1,4 +1,4 @@
-﻿using QuikGraph.Data;
+using QuikGraph.Data;
 using System;
 using System.Data;
 using QuikGraph.Algorithms;
@@ -13,14 +13,32 @@ namespace quickGraph
     class Program
     {
         public static List<int[]> map;
-        
+
+
         static void Main(string[] args)
         {
-            map = new List<int[]>();
-            generateMoves();
-
-            Console.ReadKey();
             
+            var graph2 = new AdjacencyGraph<int, Edge<int>>();
+            var graph3 = new AdjacencyGraph<nodeData, Edge<nodeData>>();
+
+            graph2.AddVertex(42);
+            graph2.AddVertex(43);
+            graph2.AddVertex(44);
+            graph2.AddVertex(45);
+            Edge<int> evv;
+            graph3.AddVertex(new Edge<nodeData>(new nodeData(new vec2(0, 0), 42)),
+                             new Edge<nodeData>(new nodeData(new vec2(0, 0), 42)));
+            graph2.AddEdge(new Edge<int>(42, 43));
+            graph2.AddEdge(new Edge<int>(42, 44));
+            int c = graph2.VertexCount;
+            int e = graph2.EdgeCount;
+
+            Console.ReadLine();
+
+            map = new List<int[]>();
+            //generateMoves();
+            //Console.ReadKey();
+
         }
 
         /// <summary>
@@ -28,10 +46,10 @@ namespace quickGraph
         /// </summary>
         static public void generateMoves()
         {
-            
+
             int[] temp = new int[9];
             int count = 0;
-            
+
             for (int i = 0; i < 3; i++)
             {
                 for (int j = 0; j < 3; j++)
@@ -69,7 +87,7 @@ namespace quickGraph
                                                     //print(temp);
                                                     map.Add(temp);
 
-                                                    
+
                                                     count++;
                                                     Console.WriteLine();
                                                 }
@@ -86,8 +104,9 @@ namespace quickGraph
             }
 
             var graph = new AdjacencyGraph<int[], Edge<int[]>>();
+
             //add all board states to graph as vertices
-            for (int i = 0; i < map.Count; i++)
+            /*for (int i = 0; i < map.Count; i++)
             {
                 graph.AddVertex(map[i]);
             }
@@ -99,7 +118,7 @@ namespace quickGraph
                 {
                     if (Connected.connect(map[i], map[j]))
                     {
-
+                        
                         Edge<int[]> a = new Edge<int[]>(map[i], map[j]);//make new edge
                         graph.AddEdge(a);  //connect edge
 
@@ -117,7 +136,8 @@ namespace quickGraph
                 }
             }
             Console.WriteLine(c);
-            //graph.ShortestPathsAStar(graph, );
+            //Function that takes an edge and returns a double as weight
+            //graph.ShortestPathsAStar(graph.ed, );*/
         }
 
         /// <summary>
@@ -134,4 +154,30 @@ namespace quickGraph
             }
         }
     }
+
+    public class vec2
+    {
+        public double x_;
+        public double y_;
+
+        public vec2(double x, double y)
+        {
+            x_ = x;
+            y_ = y;
+        }
+    }
+
+    public class nodeData
+    {
+        public vec2 v_;
+        public int id_;
+
+        public nodeData(vec2 v, int id)
+        {
+            v_ = v;
+            id_ = id;
+        }
+    }
+
 }
+
